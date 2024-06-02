@@ -25,15 +25,20 @@ async function run() {
   try {
     await client.connect();
     const productDB = client.db("productDB");
-    const shoes = productDB.collection("shoes");
-    console.log("DataBase is Connect");
+    const shoesCollection = productDB.collection("shoesCollection");
 
     // product routes
-    app.post("/shoes", async (req, res) => {});
-  } 
-  
-  finally {
-    await client.close();
+    app.post("/shoes", async (req, res) => {
+      const shoesData = req.body;
+      const result = await shoesCollection.insertOne(shoesData);
+      res.send(result)
+    });
+    
+
+
+    console.log("DataBase is Connect");
+  } finally {
+    // await client.close();
   }
 }
 
