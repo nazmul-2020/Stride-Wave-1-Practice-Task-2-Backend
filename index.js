@@ -55,7 +55,13 @@ async function run() {
         { _id: new ObjectId(id) },
         { $set: updateData }
       );
-      res.send(result)
+      res.send(result);
+    });
+
+    app.delete("/shoes/:id", async (req, res) => {
+      const id = req.params.id;
+      const result = await shoesCollection.deleteOne({ _id: new ObjectId(id) });
+      res.send(result);
     });
 
     console.log("DataBase is Connect");
